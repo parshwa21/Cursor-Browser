@@ -1,0 +1,351 @@
+/* Injectable CSS for Clinical Research Form Filler */
+
+/* Base highlighting styles */
+.crff-highlight {
+  background-color: rgba(79, 70, 229, 0.1) !important;
+  border: 2px solid rgba(79, 70, 229, 0.5) !important;
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.3) !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+}
+
+.crff-highlight::after {
+  content: '🤖';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #4f46e5;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: crff-pulse 2s infinite;
+}
+
+/* Success state */
+.crff-success {
+  background-color: rgba(34, 197, 94, 0.1) !important;
+  border: 2px solid rgba(34, 197, 94, 0.6) !important;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.4) !important;
+}
+
+.crff-success::after {
+  content: '✓';
+  background: #22c55e;
+}
+
+/* User corrected state */
+.crff-corrected {
+  background-color: rgba(245, 158, 11, 0.1) !important;
+  border: 2px solid rgba(245, 158, 11, 0.6) !important;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.4) !important;
+}
+
+.crff-corrected::after {
+  content: '✏️';
+  background: #f59e0b;
+}
+
+/* Error state */
+.crff-error {
+  background-color: rgba(239, 68, 68, 0.1) !important;
+  border: 2px solid rgba(239, 68, 68, 0.6) !important;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.4) !important;
+}
+
+.crff-error::after {
+  content: '⚠️';
+  background: #ef4444;
+}
+
+/* Compatible field preview */
+.crff-compatible {
+  outline: 2px dashed rgba(34, 197, 94, 0.5) !important;
+  outline-offset: 2px !important;
+  animation: crff-dash-animation 3s linear infinite;
+}
+
+/* Processing indicator styles */
+#crff-processing {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  animation: crff-slideIn 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.crff-indicator-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.crff-spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: crff-spin 1s linear infinite;
+}
+
+/* Notification styles */
+.crff-notification {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 10000;
+  padding: 14px 18px;
+  border-radius: 10px;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 350px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.crff-notification.crff-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.crff-notification.crff-error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.crff-notification.crff-info {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.crff-notification.crff-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.crff-notification.crff-show {
+  transform: translateX(0);
+}
+
+/* Confidence indicator */
+.crff-highlight[style*="--crff-confidence"] {
+  background: linear-gradient(
+    90deg,
+    rgba(79, 70, 229, calc(var(--crff-confidence) * 0.2)),
+    rgba(79, 70, 229, 0.05)
+  ) !important;
+}
+
+/* Field tooltips */
+.crff-tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: normal;
+  z-index: 10001;
+  max-width: 200px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all 0.2s ease;
+}
+
+.crff-tooltip.crff-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.crff-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Progress indicator for batch processing */
+.crff-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(79, 70, 229, 0.3);
+  z-index: 10000;
+}
+
+.crff-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4f46e5, #7c3aed);
+  width: 0%;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+}
+
+/* Security warning styles */
+.crff-security-warning {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border: 3px solid #ef4444;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 400px;
+  z-index: 10002;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.crff-security-warning h3 {
+  color: #ef4444;
+  margin: 0 0 10px 0;
+  font-size: 18px;
+}
+
+.crff-security-warning p {
+  color: #374151;
+  margin: 0 0 15px 0;
+  line-height: 1.5;
+}
+
+.crff-security-warning button {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Accessibility improvements */
+.crff-highlight:focus,
+.crff-success:focus,
+.crff-corrected:focus,
+.crff-error:focus {
+  outline: 3px solid #2563eb !important;
+  outline-offset: 2px !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .crff-highlight {
+    border-width: 3px !important;
+    box-shadow: none !important;
+  }
+  
+  .crff-success {
+    background-color: rgba(34, 197, 94, 0.3) !important;
+  }
+  
+  .crff-error {
+    background-color: rgba(239, 68, 68, 0.3) !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .crff-highlight,
+  .crff-success,
+  .crff-corrected,
+  .crff-error,
+  .crff-notification {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .crff-spinner {
+    animation: none !important;
+    border-top-color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* Animation keyframes */
+@keyframes crff-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes crff-slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes crff-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes crff-dash-animation {
+  0% { outline-offset: 2px; }
+  50% { outline-offset: 4px; }
+  100% { outline-offset: 2px; }
+}
+
+@keyframes crff-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .crff-tooltip {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1f2937;
+  }
+  
+  .crff-tooltip::after {
+    border-top-color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .crff-security-warning {
+    background: #1f2937;
+    color: white;
+  }
+  
+  .crff-security-warning p {
+    color: #d1d5db;
+  }
+}

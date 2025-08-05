@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinical Research Form Filler</title>
+  <link rel="stylesheet" href="styles/popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🏥 Clinical Research</h1>
+      <p>Form Filler Assistant</p>
+    </div>
+
+    <div class="main-content">
+      <!-- Site Selection Section -->
+      <div class="section">
+        <label for="siteSelect">Select Research Site:</label>
+        <select id="siteSelect" class="site-select">
+          <option value="">Choose a site...</option>
+        </select>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="section actions">
+        <button id="fillFormsBtn" class="btn primary" disabled>
+          <span class="icon">🚀</span>
+          Fill Forms
+        </button>
+        <button id="manageSitesBtn" class="btn secondary">
+          <span class="icon">⚙️</span>
+          Manage Sites
+        </button>
+      </div>
+
+      <!-- Status Section -->
+      <div class="section status" id="statusSection">
+        <div class="status-item">
+          <span class="label">Forms Detected:</span>
+          <span id="formsCount" class="value">0</span>
+        </div>
+        <div class="status-item">
+          <span class="label">Fields Ready:</span>
+          <span id="fieldsCount" class="value">0</span>
+        </div>
+      </div>
+
+      <!-- Site Management Modal -->
+      <div id="siteModal" class="modal hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 id="modalTitle">Add New Site</h2>
+            <button id="closeModal" class="close-btn">&times;</button>
+          </div>
+          
+          <form id="siteForm">
+            <div class="form-group">
+              <label for="siteName">Site Name:</label>
+              <input type="text" id="siteName" required placeholder="e.g., Memorial Hospital Clinical Research">
+            </div>
+            
+            <div class="form-group">
+              <label for="siteData">Site Information:</label>
+              <textarea id="siteData" required placeholder="Enter all site information in natural language format:
+
+Example:
+Site Name: Memorial Hospital Clinical Research Center
+Principal Investigator: Dr. Sarah Johnson, MD
+Phone: (555) 123-4567
+Email: sarah.johnson@memorial.edu
+Address: 123 Medical Center Drive, Suite 400, Boston, MA 02115
+IRB Contact: Jennifer Martinez, Phone: (555) 123-4568
+Coordinator: Mike Chen, mike.chen@memorial.edu
+License Numbers: MA-12345, DEA-AB1234567
+Tax ID: 12-3456789
+
+You can include any other relevant information in free text format..."></textarea>
+            </div>
+            
+            <div class="form-actions">
+              <button type="button" id="cancelBtn" class="btn secondary">Cancel</button>
+              <button type="submit" class="btn primary">Save Site</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Site List Modal -->
+      <div id="siteListModal" class="modal hidden">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Manage Research Sites</h2>
+            <button id="closeSiteListModal" class="close-btn">&times;</button>
+          </div>
+          
+          <div class="site-list-actions">
+            <button id="addNewSiteBtn" class="btn primary">
+              <span class="icon">➕</span>
+              Add New Site
+            </button>
+          </div>
+          
+          <div id="sitesList" class="sites-list">
+            <!-- Sites will be populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="learning-indicator">
+        <span class="icon">🧠</span>
+        <span id="learningStatus">AI Learning Active</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/popup.js"></script>
+</body>
+</html>
