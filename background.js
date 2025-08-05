@@ -89,16 +89,38 @@ class AIProcessor {
         /principal\s+investigator[:\s]*([^,\n]+)/i,
         /pi[:\s]*([^,\n]+)/i,
         /dr\.?\s+([^,\n]+)/i,
-        /investigator[:\s]*([^,\n]+)/i
+        /investigator[:\s]*([^,\n]+)/i,
+        /physician[:\s]*([^,\n]+)/i,
+        /doctor[:\s]*([^,\n]+)/i
+      ],
+      firstName: [
+        /first\s+name[:\s]*([^,\n]+)/i,
+        /fname[:\s]*([^,\n]+)/i,
+        /given\s+name[:\s]*([^,\n]+)/i
+      ],
+      lastName: [
+        /last\s+name[:\s]*([^,\n]+)/i,
+        /lname[:\s]*([^,\n]+)/i,
+        /surname[:\s]*([^,\n]+)/i,
+        /family\s+name[:\s]*([^,\n]+)/i
+      ],
+      fullName: [
+        /name[:\s]*([^,\n]+)/i,
+        /contact[:\s]*([^,\n]+)/i
       ],
       phone: [
         /phone[:\s]*(\(?[\d\s\-\.\(\)]{10,})/i,
         /tel[:\s]*(\(?[\d\s\-\.\(\)]{10,})/i,
+        /telephone[:\s]*(\(?[\d\s\-\.\(\)]{10,})/i,
+        /mobile[:\s]*(\(?[\d\s\-\.\(\)]{10,})/i,
+        /cell[:\s]*(\(?[\d\s\-\.\(\)]{10,})/i,
         /(\(\d{3}\)\s*\d{3}-\d{4})/,
         /(\d{3}[-\.\s]?\d{3}[-\.\s]?\d{4})/
       ],
       email: [
         /email[:\s]*([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/i,
+        /mail[:\s]*([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/i,
+        /e-mail[:\s]*([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/i,
         /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/
       ],
       fax: [
@@ -109,23 +131,31 @@ class AIProcessor {
       // Address Information
       address: [
         /address[:\s]*([^,\n]+(?:,\s*[^,\n]+)*)/i,
+        /street[:\s]*([^,\n]+(?:,\s*[^,\n]+)*)/i,
         /location[:\s]*([^,\n]+(?:,\s*[^,\n]+)*)/i,
         /(\d+\s+[^,\n]+(?:,\s*[^,\n]+)*)/
       ],
       city: [
         /city[:\s]*([^,\n]+)/i,
+        /town[:\s]*([^,\n]+)/i,
         /,\s*([A-Za-z\s]+),\s*[A-Z]{2}/,
         /address[^,\n]*,\s*([^,\n]+),/i
       ],
       state: [
         /state[:\s]*([A-Z]{2}|[A-Za-z\s]+)/i,
+        /province[:\s]*([A-Z]{2}|[A-Za-z\s]+)/i,
         /,\s*([A-Z]{2})\s+\d{5}/,
         /,\s*([A-Za-z\s]+)\s+\d{5}/
       ],
       zipCode: [
         /zip[:\s]*(\d{5}(?:-\d{4})?)/i,
         /postal[:\s]*(\d{5}(?:-\d{4})?)/i,
+        /zip\s+code[:\s]*(\d{5}(?:-\d{4})?)/i,
         /(\d{5}(?:-\d{4})?)/
+      ],
+      country: [
+        /country[:\s]*([^,\n]+)/i,
+        /nation[:\s]*([^,\n]+)/i
       ],
       
       // Institution Information
@@ -133,46 +163,84 @@ class AIProcessor {
         /institution[:\s]*([^,\n]+)/i,
         /hospital[:\s]*([^,\n]+)/i,
         /center[:\s]*([^,\n]+)/i,
+        /centre[:\s]*([^,\n]+)/i,
         /clinic[:\s]*([^,\n]+)/i,
-        /university[:\s]*([^,\n]+)/i
+        /university[:\s]*([^,\n]+)/i,
+        /college[:\s]*([^,\n]+)/i,
+        /organization[:\s]*([^,\n]+)/i,
+        /organisation[:\s]*([^,\n]+)/i,
+        /company[:\s]*([^,\n]+)/i
       ],
       department: [
         /department[:\s]*([^,\n]+)/i,
         /dept[:\s]*([^,\n]+)/i,
-        /division[:\s]*([^,\n]+)/i
+        /division[:\s]*([^,\n]+)/i,
+        /unit[:\s]*([^,\n]+)/i,
+        /section[:\s]*([^,\n]+)/i
       ],
       
       // Regulatory Information
       irbContact: [
         /irb[:\s]*([^,\n]+)/i,
         /institutional\s+review\s+board[:\s]*([^,\n]+)/i,
-        /ethics[:\s]*([^,\n]+)/i
+        /ethics[:\s]*([^,\n]+)/i,
+        /review\s+board[:\s]*([^,\n]+)/i
       ],
       licenseNumber: [
         /license[:\s]*([A-Z0-9\-]+)/i,
+        /licence[:\s]*([A-Z0-9\-]+)/i,
         /license\s+number[:\s]*([A-Z0-9\-]+)/i,
-        /lic[:\s]*([A-Z0-9\-]+)/i
+        /lic[:\s]*([A-Z0-9\-]+)/i,
+        /permit[:\s]*([A-Z0-9\-]+)/i
       ],
       deaNumber: [
         /dea[:\s]*([A-Z0-9\-]+)/i,
-        /dea\s+number[:\s]*([A-Z0-9\-]+)/i
+        /dea\s+number[:\s]*([A-Z0-9\-]+)/i,
+        /drug\s+enforcement[:\s]*([A-Z0-9\-]+)/i
       ],
       taxId: [
         /tax\s+id[:\s]*([0-9\-]+)/i,
         /ein[:\s]*([0-9\-]+)/i,
-        /federal\s+id[:\s]*([0-9\-]+)/i
+        /federal\s+id[:\s]*([0-9\-]+)/i,
+        /tax\s+number[:\s]*([0-9\-]+)/i
+      ],
+      npiNumber: [
+        /npi[:\s]*([0-9]+)/i,
+        /npi\s+number[:\s]*([0-9]+)/i,
+        /national\s+provider[:\s]*([0-9]+)/i
       ],
       
       // Personnel
       coordinator: [
         /coordinator[:\s]*([^,\n]+)/i,
         /study\s+coordinator[:\s]*([^,\n]+)/i,
-        /research\s+coordinator[:\s]*([^,\n]+)/i
+        /research\s+coordinator[:\s]*([^,\n]+)/i,
+        /clinical\s+coordinator[:\s]*([^,\n]+)/i,
+        /trial\s+coordinator[:\s]*([^,\n]+)/i
       ],
       subInvestigator: [
         /sub[:\s]*investigator[:\s]*([^,\n]+)/i,
         /co[:\s]*investigator[:\s]*([^,\n]+)/i,
-        /associate[:\s]*investigator[:\s]*([^,\n]+)/i
+        /associate[:\s]*investigator[:\s]*([^,\n]+)/i,
+        /assistant[:\s]*investigator[:\s]*([^,\n]+)/i
+      ],
+      title: [
+        /title[:\s]*([^,\n]+)/i,
+        /position[:\s]*([^,\n]+)/i,
+        /role[:\s]*([^,\n]+)/i,
+        /designation[:\s]*([^,\n]+)/i
+      ],
+      
+      // Additional common fields
+      website: [
+        /website[:\s]*([^\s\n]+)/i,
+        /url[:\s]*([^\s\n]+)/i,
+        /(https?:\/\/[^\s\n]+)/i
+      ],
+      specialty: [
+        /specialty[:\s]*([^,\n]+)/i,
+        /specialization[:\s]*([^,\n]+)/i,
+        /focus[:\s]*([^,\n]+)/i
       ]
     };
   }
@@ -191,6 +259,7 @@ class AIProcessor {
   extractStructuredData(unstructuredData) {
     const extracted = {};
     
+    // First pass: exact pattern matching
     for (const [fieldType, patterns] of Object.entries(this.fieldPatterns)) {
       for (const pattern of patterns) {
         const match = unstructuredData.match(pattern);
@@ -198,14 +267,119 @@ class AIProcessor {
           extracted[fieldType] = {
             value: match[1] ? match[1].trim() : match[0].trim(),
             confidence: this.confidence.calculatePatternConfidence(pattern, match),
-            pattern: pattern.toString()
+            pattern: pattern.toString(),
+            method: 'regex'
           };
           break; // Use first match for each field type
         }
       }
     }
+
+    // Second pass: flexible text extraction for common patterns
+    this.extractFlexiblePatterns(unstructuredData, extracted);
     
     return extracted;
+  }
+
+  extractFlexiblePatterns(text, extracted) {
+    const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+    
+    for (const line of lines) {
+      // Try to extract key-value pairs from lines like "Key: Value"
+      const colonMatch = line.match(/^([^:]+):\s*(.+)$/);
+      if (colonMatch) {
+        const key = colonMatch[1].trim().toLowerCase();
+        const value = colonMatch[2].trim();
+        
+        if (value.length > 0 && value.length < 200) {
+          // Map common field names to our data types
+          const fieldMapping = this.getFieldMapping(key);
+          if (fieldMapping && !extracted[fieldMapping]) {
+            extracted[fieldMapping] = {
+              value: value,
+              confidence: 0.7,
+              pattern: 'flexible_colon',
+              method: 'flexible'
+            };
+          }
+        }
+      }
+      
+      // Extract standalone emails and phones that might be missed
+      if (!extracted.email) {
+        const emailMatch = line.match(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
+        if (emailMatch) {
+          extracted.email = {
+            value: emailMatch[1],
+            confidence: 0.9,
+            pattern: 'standalone_email',
+            method: 'flexible'
+          };
+        }
+      }
+      
+      if (!extracted.phone) {
+        const phoneMatch = line.match(/(\(?[\d\s\-\.\(\)]{10,})/);
+        if (phoneMatch && phoneMatch[1].replace(/\D/g, '').length >= 10) {
+          extracted.phone = {
+            value: phoneMatch[1],
+            confidence: 0.8,
+            pattern: 'standalone_phone',
+            method: 'flexible'
+          };
+        }
+      }
+    }
+  }
+
+  getFieldMapping(key) {
+    const mappings = {
+      'name': 'fullName',
+      'full name': 'fullName',
+      'contact name': 'fullName',
+      'first name': 'firstName',
+      'last name': 'lastName',
+      'email': 'email',
+      'e-mail': 'email',
+      'mail': 'email',
+      'phone': 'phone',
+      'telephone': 'phone',
+      'tel': 'phone',
+      'mobile': 'phone',
+      'cell': 'phone',
+      'fax': 'fax',
+      'address': 'address',
+      'street': 'address',
+      'location': 'address',
+      'city': 'city',
+      'state': 'state',
+      'zip': 'zipCode',
+      'postal': 'zipCode',
+      'country': 'country',
+      'institution': 'institutionName',
+      'hospital': 'institutionName',
+      'organization': 'institutionName',
+      'company': 'institutionName',
+      'department': 'department',
+      'dept': 'department',
+      'title': 'title',
+      'position': 'title',
+      'role': 'title',
+      'coordinator': 'coordinator',
+      'investigator': 'principalInvestigator',
+      'pi': 'principalInvestigator',
+      'doctor': 'principalInvestigator',
+      'license': 'licenseNumber',
+      'dea': 'deaNumber',
+      'tax id': 'taxId',
+      'ein': 'taxId',
+      'npi': 'npiNumber',
+      'website': 'website',
+      'url': 'website',
+      'specialty': 'specialty'
+    };
+    
+    return mappings[key] || null;
   }
 
   async generateFieldMappings(formFields, extractedData) {
@@ -231,14 +405,27 @@ class AIProcessor {
   findBestMatch(formField, extractedData) {
     const fieldName = formField.name.toLowerCase();
     const fieldId = formField.id.toLowerCase();
-    const fieldText = `${fieldName} ${fieldId}`;
+    const fieldLabel = formField.label ? formField.label.toLowerCase() : '';
+    const fieldContext = formField.context ? formField.context.toLowerCase() : '';
+    const fieldSearchText = formField.searchText || '';
+    const fieldCategory = formField.fieldCategory || 'general';
+    
+    // Combine all text for matching
+    const fieldText = `${fieldName} ${fieldId} ${fieldLabel} ${fieldContext} ${fieldSearchText}`;
     
     let bestMatch = null;
     let highestScore = 0;
     
     for (const [dataType, data] of Object.entries(extractedData)) {
-      const score = this.calculateFieldMatchScore(fieldText, dataType, formField.type);
-      if (score > highestScore && score > 0.3) { // Minimum confidence threshold
+      let score = this.calculateFieldMatchScore(fieldText, dataType, formField.type, fieldCategory);
+      
+      // Boost score for category matches
+      if (this.categoryMatches(fieldCategory, dataType)) {
+        score += 0.3;
+      }
+      
+      // Lower threshold for better coverage - was 0.3, now 0.15
+      if (score > highestScore && score > 0.15) {
         highestScore = score;
         bestMatch = {
           ...data,
@@ -251,60 +438,144 @@ class AIProcessor {
     return bestMatch;
   }
 
-  calculateFieldMatchScore(fieldText, dataType, fieldType) {
-    // Keyword matching
+  categoryMatches(fieldCategory, dataType) {
+    const categoryMappings = {
+      'email': ['email'],
+      'phone': ['phone', 'fax'],
+      'name': ['firstName', 'lastName', 'fullName', 'principalInvestigator'],
+      'address': ['address', 'city', 'state', 'zipCode', 'country'],
+      'organization': ['institutionName', 'department'],
+      'title': ['title', 'specialty'],
+      'identifier': ['licenseNumber', 'deaNumber', 'taxId', 'npiNumber']
+    };
+    
+    const mappedTypes = categoryMappings[fieldCategory] || [];
+    return mappedTypes.includes(dataType);
+  }
+
+  calculateFieldMatchScore(fieldText, dataType, fieldType, fieldCategory) {
+    // Enhanced keyword matching with more comprehensive coverage
     const keywords = {
-      principalInvestigator: ['investigator', 'pi', 'principal', 'doctor', 'dr'],
-      phone: ['phone', 'tel', 'telephone', 'contact'],
-      email: ['email', 'mail', 'contact'],
+      principalInvestigator: ['investigator', 'pi', 'principal', 'doctor', 'dr', 'physician', 'md', 'phd'],
+      firstName: ['first', 'fname', 'given', 'forename'],
+      lastName: ['last', 'lname', 'surname', 'family', 'lastname'],
+      fullName: ['name', 'fullname', 'contact', 'person', 'individual'],
+      phone: ['phone', 'tel', 'telephone', 'contact', 'mobile', 'cell', 'number'],
+      email: ['email', 'mail', 'contact', '@'],
       fax: ['fax', 'facsimile'],
-      address: ['address', 'street', 'location'],
-      city: ['city', 'town'],
-      state: ['state', 'province'],
-      zipCode: ['zip', 'postal', 'code'],
-      institutionName: ['institution', 'hospital', 'center', 'clinic', 'organization'],
-      department: ['department', 'dept', 'division'],
-      coordinator: ['coordinator', 'manager'],
-      licenseNumber: ['license', 'lic', 'permit'],
-      deaNumber: ['dea', 'drug'],
-      taxId: ['tax', 'ein', 'federal']
+      address: ['address', 'street', 'location', 'addr', 'avenue', 'road', 'drive', 'lane'],
+      city: ['city', 'town', 'municipality'],
+      state: ['state', 'province', 'region'],
+      zipCode: ['zip', 'postal', 'code', 'postcode'],
+      country: ['country', 'nation'],
+      institutionName: ['institution', 'hospital', 'center', 'clinic', 'organization', 'org', 'company', 'university', 'college'],
+      department: ['department', 'dept', 'division', 'unit', 'section'],
+      coordinator: ['coordinator', 'manager', 'admin', 'assistant'],
+      licenseNumber: ['license', 'licence', 'lic', 'permit', 'certification', 'cert'],
+      deaNumber: ['dea', 'drug', 'enforcement'],
+      taxId: ['tax', 'ein', 'federal', 'employer'],
+      npiNumber: ['npi', 'provider', 'national'],
+      title: ['title', 'position', 'role', 'job', 'designation'],
+      specialty: ['specialty', 'specialization', 'focus', 'area'],
+      website: ['website', 'url', 'site', 'web', 'http'],
+      irbContact: ['irb', 'review', 'board', 'ethics', 'committee'],
+      subInvestigator: ['sub', 'co', 'associate', 'assistant', 'secondary']
     };
     
     const dataKeywords = keywords[dataType] || [];
     let score = 0;
     
-    // Check for keyword matches
+    // Check for keyword matches with partial scoring
     for (const keyword of dataKeywords) {
       if (fieldText.includes(keyword)) {
         score += 0.4;
+        // Bonus for exact word matches
+        const wordRegex = new RegExp(`\\b${keyword}\\b`, 'i');
+        if (wordRegex.test(fieldText)) {
+          score += 0.2;
+        }
       }
     }
     
-    // Boost score for exact matches
+    // Boost score for exact data type matches
     if (fieldText.includes(dataType.toLowerCase())) {
       score += 0.6;
     }
     
-    // Field type compatibility
+    // Special handling for common abbreviations and variations
+    const abbreviations = {
+      firstName: ['fn', 'f_name', 'firstname'],
+      lastName: ['ln', 'l_name', 'lastname'],
+      email: ['e_mail', 'email_address', 'mail_address'],
+      phone: ['ph', 'tel_no', 'phone_no', 'contact_no'],
+      address: ['addr', 'address_1', 'address1', 'street_addr'],
+      zipCode: ['zip_code', 'postal_code', 'postcode'],
+      institutionName: ['inst', 'hosp', 'org_name', 'company_name']
+    };
+    
+    const abbrevs = abbreviations[dataType] || [];
+    for (const abbrev of abbrevs) {
+      if (fieldText.includes(abbrev)) {
+        score += 0.3;
+      }
+    }
+    
+    // Field type compatibility scoring
     const typeCompatibility = this.getTypeCompatibility(fieldType, dataType);
     score *= typeCompatibility;
+    
+    // Category bonus (if provided)
+    if (fieldCategory && this.categoryMatches(fieldCategory, dataType)) {
+      score += 0.2;
+    }
     
     return Math.min(score, 1.0);
   }
 
   getTypeCompatibility(formFieldType, dataType) {
     const compatibility = {
-      email: { email: 1.0 },
-      tel: { phone: 1.0, fax: 0.8 },
-      text: { '*': 0.8 }, // Text fields can accept most data
-      textarea: { address: 1.0, '*': 0.6 },
-      number: { zipCode: 1.0, licenseNumber: 0.7, taxId: 0.7 }
+      email: { 
+        email: 1.0,
+        fullName: 0.3 // Sometimes name fields accept emails
+      },
+      tel: { 
+        phone: 1.0, 
+        fax: 0.9,
+        npiNumber: 0.7,
+        licenseNumber: 0.6
+      },
+      text: { 
+        '*': 0.9 // Text fields can accept most data
+      },
+      textarea: { 
+        address: 1.0,
+        specialty: 0.9,
+        '*': 0.7
+      },
+      number: { 
+        zipCode: 1.0, 
+        npiNumber: 0.9,
+        licenseNumber: 0.8, 
+        taxId: 0.8,
+        deaNumber: 0.7
+      },
+      url: {
+        website: 1.0,
+        email: 0.3
+      },
+      date: {
+        '*': 0.2 // Dates rarely match our text data
+      },
+      // Handle input types without explicit type
+      input: {
+        '*': 0.8
+      }
     };
     
-    const fieldCompat = compatibility[formFieldType];
-    if (!fieldCompat) return 0.5; // Default compatibility
+    const fieldCompat = compatibility[formFieldType] || compatibility['input'];
+    if (!fieldCompat) return 0.6; // Default compatibility
     
-    return fieldCompat[dataType] || fieldCompat['*'] || 0.3;
+    return fieldCompat[dataType] || fieldCompat['*'] || 0.4;
   }
 
   async getFieldMappings(fields, siteData) {

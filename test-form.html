@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Research Form Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2 {
+            color: #333;
+            border-bottom: 2px solid #4f46e5;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #4f46e5;
+            outline: none;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        button {
+            background: #4f46e5;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #3730a3;
+        }
+        .instructions {
+            background: #e0f2fe;
+            border: 1px solid #0277bd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        <h3>🧪 Test Instructions</h3>
+        <p>This page contains various form fields to test the Clinical Research Form Filler extension. Add a research site with sample data, then click the "Fill Forms" button in the extension to see it work!</p>
+        <p><strong>Sample site data:</strong></p>
+        <pre>
+Site Name: Memorial Hospital Research Center
+Principal Investigator: Dr. Sarah Johnson
+Email: sarah.johnson@memorial.edu
+Phone: (555) 123-4567
+Address: 123 Medical Drive, Boston, MA 02115
+Department: Oncology Research
+Coordinator: Mike Chen
+License: MA-12345
+DEA: AB1234567
+Tax ID: 12-3456789
+        </pre>
+    </div>
+
+    <div class="form-container">
+        <h1>Clinical Research Site Registration</h1>
+        
+        <form id="mainForm">
+            <h2>Contact Information</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="first_name" placeholder="Enter first name">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="last_name" placeholder="Enter last name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="full_name" placeholder="Enter complete name">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter email address">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter phone number">
+                </div>
+                <div class="form-group">
+                    <label for="fax">Fax Number</label>
+                    <input type="tel" id="fax" name="fax" placeholder="Enter fax number">
+                </div>
+            </div>
+
+            <h2>Institution Details</h2>
+
+            <div class="form-group">
+                <label for="institution">Institution Name</label>
+                <input type="text" id="institution" name="institution_name" placeholder="Enter institution name">
+            </div>
+
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" name="department" placeholder="Enter department">
+            </div>
+
+            <div class="form-group">
+                <label for="address">Street Address</label>
+                <textarea id="address" name="address" rows="3" placeholder="Enter complete address"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" placeholder="Enter city">
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <select id="state" name="state">
+                        <option value="">Select State</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="NY">New York</option>
+                        <option value="CA">California</option>
+                        <option value="TX">Texas</option>
+                        <option value="FL">Florida</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="zipCode">ZIP Code</label>
+                    <input type="text" id="zipCode" name="zip_code" placeholder="Enter ZIP code">
+                </div>
+            </div>
+
+            <h2>Professional Information</h2>
+
+            <div class="form-group">
+                <label for="title">Professional Title</label>
+                <input type="text" id="title" name="title" placeholder="Enter professional title">
+            </div>
+
+            <div class="form-group">
+                <label for="specialty">Specialty</label>
+                <input type="text" id="specialty" name="specialty" placeholder="Enter medical specialty">
+            </div>
+
+            <div class="form-group">
+                <label for="coordinator">Study Coordinator</label>
+                <input type="text" id="coordinator" name="coordinator" placeholder="Enter coordinator name">
+            </div>
+
+            <h2>Regulatory Information</h2>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="license">License Number</label>
+                    <input type="text" id="license" name="license_number" placeholder="Enter license number">
+                </div>
+                <div class="form-group">
+                    <label for="dea">DEA Number</label>
+                    <input type="text" id="dea" name="dea_number" placeholder="Enter DEA number">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="taxId">Tax ID / EIN</label>
+                    <input type="text" id="taxId" name="tax_id" placeholder="Enter tax ID">
+                </div>
+                <div class="form-group">
+                    <label for="npi">NPI Number</label>
+                    <input type="number" id="npi" name="npi_number" placeholder="Enter NPI number">
+                </div>
+            </div>
+
+            <h2>Additional Information</h2>
+
+            <div class="form-group">
+                <label for="website">Website URL</label>
+                <input type="url" id="website" name="website" placeholder="Enter website URL">
+            </div>
+
+            <div class="form-group">
+                <label>Research Experience</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="exp1" name="experience" value="novice">
+                        <label for="exp1">Novice (0-2 years)</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="exp2" name="experience" value="intermediate">
+                        <label for="exp2">Intermediate (3-5 years)</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="exp3" name="experience" value="expert">
+                        <label for="exp3">Expert (5+ years)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agree" name="agreement">
+                    <label for="agree">I agree to the terms and conditions</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="newsletter" name="newsletter">
+                    <label for="newsletter">Subscribe to research updates</label>
+                </div>
+            </div>
+
+            <button type="submit">Submit Registration</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>🔍 Field Detection Test</h2>
+        <p>Additional fields without a form wrapper:</p>
+        
+        <div class="form-group">
+            <label for="standaloneEmail">Contact Email</label>
+            <input type="email" id="standaloneEmail" name="contact_email" placeholder="Standalone email field">
+        </div>
+
+        <div class="form-group">
+            <label for="standalonePhone">Contact Phone</label>
+            <input type="tel" id="standalonePhone" name="contact_phone" placeholder="Standalone phone field">
+        </div>
+    </div>
+
+    <script>
+        // Add some basic form handling
+        document.getElementById('mainForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Form submitted! (This is just a test form)');
+        });
+
+        // Log field detection for debugging
+        console.log('Test form loaded. Fields available for detection:');
+        const allInputs = document.querySelectorAll('input, textarea, select');
+        allInputs.forEach((input, index) => {
+            console.log(`${index + 1}. ${input.type || input.tagName} - Name: ${input.name} - ID: ${input.id} - Placeholder: ${input.placeholder}`);
+        });
+    </script>
+</body>
+</html>
